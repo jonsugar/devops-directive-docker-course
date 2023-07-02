@@ -4,6 +4,7 @@ DATABASE_URL:=postgres://postgres:foobarbaz@localhost:5432/postgres
 run-postgres:
 	@echo Starting postgres container
 	-docker run \
+		--rm \
 		-e POSTGRES_PASSWORD=foobarbaz \
 		-v pgdata:/var/lib/postgresql/data \
 		-p 5432:5432 \
