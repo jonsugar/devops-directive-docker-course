@@ -1,6 +1,6 @@
 DATABASE_URL:=postgres://postgres:foobarbaz@localhost:5432/postgres
 
-objects = node_modules run-npm-install
+objects = node_modules run-npm-install go-workspace
 
 .PHONY: run-postgres
 run-postgres:
@@ -30,8 +30,9 @@ run-api-node: run-npm-install run-npm-update
 		npm run dev
 
 .PHONY: run-api-golang
-run-api-golang:
+run-api-golang: make-go-workspace
 	@echo Starting golang api
+	export GOPATH=$PWD/go-workspace
 	cd api-golang && \
 		DATABASE_URL=${DATABASE_URL} \
 		go run main.go
@@ -46,3 +47,10 @@ run-client-react:
 clean:
 	@echo cleaning build artifacts
 	rm -rf $(objects)
+
+make-go-workspace:
+	@echo creating logout workspace
+	mkdir "go-workspace"
+	export GOPATH=$PWD/go-workspace
+	go mod download
+	touch make-go-workspace

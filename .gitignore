@@ -6,3 +6,4 @@
 .DS_Store
 **/tmp
 /05-example-web-application/run-npm-install
+/05-example-web-application/make-go-workspace
