@@ -1,6 +1,7 @@
 DATABASE_URL:=postgres://postgres:foobarbaz@localhost:5432/postgres
 
-objects = node_modules run-npm-install go-workspace
+objects = node_modules run-npm-install-api-node run-npm-install-client-react \
+	make-go-workspace
 
 .PHONY: run-postgres
 run-postgres:
@@ -12,18 +13,17 @@ run-postgres:
 		-p 5432:5432 \
 		postgres:15.1-alpine
 
-.PHONY: run-npm-update
-run-npm-update:
+run-npm-update-api-node:
 	@echo Updating node dependencies
 	cd api-node && npm update
 
-run-npm-install:
+run-npm-install-api-node:
 	@echo Installing node dependencies
 	cd api-node && npm install
-	touch run-npm-install
+	touch run-npm-install-api-node
 
 .PHONY: run-api-node
-run-api-node: run-npm-install run-npm-update
+run-api-node: run-npm-install-api-node run-npm-update-api-node
 	@echo Starting node api
 	cd api-node && \
 		DATABASE_URL=${DATABASE_URL} \
@@ -32,13 +32,27 @@ run-api-node: run-npm-install run-npm-update
 .PHONY: run-api-golang
 run-api-golang: make-go-workspace
 	@echo Starting golang api
-	export GOPATH=$PWD/go-workspace
 	cd api-golang && \
-		DATABASE_URL=${DATABASE_URL} \
-		go run main.go
+		export GOPATH=${PWD}/go-workspace && \
+		DATABASE_URL=${DATABASE_URL} go run main.go
+
+make-go-workspace:
+	@echo creating go workspace
+	export GOPATH=${PWD}/go-workspace && \
+	cd api-golang && go mod download
+	touch make-go-workspace
+
+run-npm-update-client-react:
+	@echo Updating node dependencies
+	cd client-react && npm update
+
+run-npm-install-client-react:
+	@echo Installing node dependencies
+	cd client-react && npm install
+	touch run-npm-install-client-react
 
 .PHONY: run-client-react
-run-client-react:
+run-client-react: run-npm-install-client-react run-npm-update-client-react
 	@echo Starting react client
 	cd client-react && \
 		npm run dev
@@ -47,10 +61,3 @@ run-client-react:
 clean:
 	@echo cleaning build artifacts
 	rm -rf $(objects)
-
-make-go-workspace:
-	@echo creating logout workspace
-	mkdir "go-workspace"
-	export GOPATH=$PWD/go-workspace
-	go mod download
-	touch make-go-workspace
