@@ -10,14 +10,14 @@ const pool = new Pool({
   connectionString: databaseUrl,
 });
 
-// the pool will emit an error on behalf of any idle clients
+// the pool will emit an error for any idle clients
 // it contains if a backend error or network partition happens
 pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err);
   process.exit(-1);
 });
 
-// async/await - check out a client
+// async/await – check out a client
 const getDateTime = async () => {
   const client = await pool.connect();
   try {

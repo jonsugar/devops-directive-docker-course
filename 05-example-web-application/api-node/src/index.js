@@ -10,8 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(morgan('tiny'));
 
 app.get('/', async (req, res) => {
-  const dateTime = await getDateTime();
-  const response = dateTime;
+  const response = await getDateTime();
   response.api = 'node';
   res.send(response);
 });
