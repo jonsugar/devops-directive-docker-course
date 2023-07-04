@@ -1,8 +1,30 @@
-# Pin specific version for stability
-# Use slim for reduced image size
-FROM node:19.6-bullseye-slim
+# ------------------------------------------------------------------------------
+# Built-on: 04-JUL-2023 18:12:30 UTC
+# Version:  1.0
+# ------------------------------------------------------------------------------
+#
+#  At build time, the following applied:
+#
+#    Operating System:
+#      debian stable
+#      version 12 (bookworm)
+#
+#    Node version: Current LTS
+#      version: 18.16.1
+#
+# ------------------------------------------------------------------------------
+FROM node:18-bookworm-slim
 
 LABEL org.opencontainers.image.authors="jonathansugar@mac.com"
+LABEL org.opencontainers.image.created="2023-07-04T19:12:+01:00"
+LABEL org.opencontainers.image.licenses="SPDX-License-Identifier: MIT"
+LABEL org.opencontainers.image.url="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/api-node"
+LABEL org.opencontainers.image.documentation="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/api-node"
+LABEL org.opencontainers.image.source="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/api-node"
+LABEL org.opencontainers.image.version="1.0"
+LABEL org.opencontainers.image.vendor="netcandy"
+LABEL org.opencontainers.image.title="Demo node API"
+LABEL org.opencontainers.image.description="Demo node API for Complete Docker Course - From BEGINNER to PRO! (Learn Containers)"
 
 # Set NODE_ENV
 ENV NODE_ENV production
