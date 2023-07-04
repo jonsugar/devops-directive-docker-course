@@ -1,7 +1,17 @@
-# Pin specific version for stability
-# Use separate stage for building image
-# Use debian for easier build utilities
-FROM golang:1.19-bullseye AS build
+# ------------------------------------------------------------------------------
+# Built-on: 04-JUL-2023 17:26:30 UTC
+# ------------------------------------------------------------------------------
+#
+#  At build time, the following applied:
+#
+#    Operating System:
+#      debian stable (version 12, bookworm)
+#
+#    GO version:
+#      1.20.5
+#
+# ------------------------------------------------------------------------------
+FROM golang:1.20-bookworm AS build
 
 WORKDIR /app
 
@@ -29,15 +39,15 @@ RUN go build \
 FROM scratch
 
 LABEL org.opencontainers.image.authors="jonathansugar@mac.com"
-LABEL org.opencontainers.image.created="2023-07-03T14:06"
+LABEL org.opencontainers.image.created="2023-07-04T18:27:30+01:00"
 LABEL org.opencontainers.image.licenses="SPDX-License-Identifier: MIT"
-LABEL org.opencontainers.image.url="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/client-react"
-LABEL org.opencontainers.image.documentation="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/client-react"
-LABEL org.opencontainers.image.source="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/client-react"
-LABEL org.opencontainers.image.version="0.1"
+LABEL org.opencontainers.image.url="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/api-golang"
+LABEL org.opencontainers.image.documentation="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/api-golang"
+LABEL org.opencontainers.image.source="https://github.com/jonsugar/devops-directive-docker-course/tree/main/05-example-web-application/api-golang"
+LABEL org.opencontainers.image.version="1.0"
 LABEL org.opencontainers.image.vendor="netcandy"
-LABEL org.opencontainers.image.title="Demo React client"
-LABEL org.opencontainers.image.description="Demo React client for Complete Docker Course - From BEGINNER to PRO! (Learn Containers)"
+LABEL org.opencontainers.image.title="Demo Golang API"
+LABEL org.opencontainers.image.description="Demo Golang API for Complete Docker Course - From BEGINNER to PRO! (Learn Containers)"
 
 # Set gin mode
 ENV GIN_MODE=release
