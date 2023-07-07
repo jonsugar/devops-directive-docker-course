@@ -1,0 +1,16 @@
+{
+  "name": "vendor_name/devops-directive-docker-course",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "jonsugar",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-mbstring": "*"
+  }
+}
